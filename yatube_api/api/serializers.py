@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
+
 from posts.models import Post, Group, Comment
 
 User = get_user_model()
@@ -29,8 +30,8 @@ class CommentSerializer(serializers.ModelSerializer):
         slug_field='username',
         read_only=True
     )
-    post = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Comment
         fields = ('id', 'author', 'post', 'text', 'created')
+        read_only_fields = ('post',)
